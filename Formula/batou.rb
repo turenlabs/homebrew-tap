@@ -31,105 +31,114 @@ class Batou < Formula
     else
       bin.install "batou-linux-#{cpu}" => "batou"
     end
-  end
 
-  def post_install
-    hook_dir = Pathname.new(Dir.home)/".batou"/"hooks"
-    hook_dir.mkpath
+    # Install a setup script that configures Claude Code hooks
+    (bin/"batou-setup").write <<~BASH
+      #!/usr/bin/env bash
+      set -euo pipefail
 
-    hook_script = hook_dir/"batou-hook.sh"
-    hook_script.delete if hook_script.exist?
-    hook_script.write <<~BASH
+      HOOK_DIR="$HOME/.batou/hooks"
+      HOOK_SCRIPT="$HOOK_DIR/batou-hook.sh"
+      SETTINGS_FILE="$HOME/.claude/settings.json"
+
+      echo "Setting up Batou Claude Code hooks..."
+
+      # Create hook wrapper script
+      mkdir -p "$HOOK_DIR"
+      cat > "$HOOK_SCRIPT" << 'HOOKEOF'
       #!/usr/bin/env bash
       set -euo pipefail
       BATOU_BIN=""
-      if [[ -x "#{HOMEBREW_PREFIX}/bin/batou" ]]; then
-          BATOU_BIN="#{HOMEBREW_PREFIX}/bin/batou"
+      if command -v batou &>/dev/null; then
+          BATOU_BIN="$(command -v batou)"
       elif [[ -x "$HOME/.batou/bin/batou" ]]; then
           BATOU_BIN="$HOME/.batou/bin/batou"
-      elif command -v batou &>/dev/null; then
-          BATOU_BIN="$(command -v batou)"
       fi
       if [[ -z "$BATOU_BIN" ]]; then
           exit 0
       fi
       exec "$BATOU_BIN"
+      HOOKEOF
+      chmod 755 "$HOOK_SCRIPT"
+      echo "Hook script installed: $HOOK_SCRIPT"
+
+      # Configure Claude Code settings
+      mkdir -p "$HOME/.claude"
+
+      if [[ -f "$SETTINGS_FILE" ]] && grep -q "batou" "$SETTINGS_FILE" 2>/dev/null; then
+          echo "Batou hooks already configured in $SETTINGS_FILE"
+          echo "Updating hook script only."
+          echo "Done!"
+          exit 0
+      fi
+
+      BATOU_HOOKS=$(cat << 'JSONEOF'
+      {
+        "hooks": {
+          "PreToolUse": [
+            {
+              "matcher": "Write|Edit|NotebookEdit",
+              "hooks": [
+                {
+                  "type": "command",
+                  "command": "HOOK_PLACEHOLDER",
+                  "timeout": 30,
+                  "statusMessage": "Batou: Scanning for vulnerabilities..."
+                }
+              ]
+            }
+          ],
+          "PostToolUse": [
+            {
+              "matcher": "Write|Edit|NotebookEdit",
+              "hooks": [
+                {
+                  "type": "command",
+                  "command": "HOOK_PLACEHOLDER",
+                  "timeout": 30,
+                  "statusMessage": "Batou: Deep security scan..."
+                }
+              ]
+            }
+          ]
+        }
+      }
+      JSONEOF
+      )
+
+      BATOU_HOOKS=$(echo "$BATOU_HOOKS" | sed "s|HOOK_PLACEHOLDER|$HOOK_SCRIPT|g")
+
+      if [[ -f "$SETTINGS_FILE" ]]; then
+          if command -v jq &>/dev/null; then
+              TMP_FILE=$(mktemp)
+              echo "$BATOU_HOOKS" | jq -s '.[0] * .[1]' "$SETTINGS_FILE" - > "$TMP_FILE"
+              mv "$TMP_FILE" "$SETTINGS_FILE"
+              echo "Merged Batou hooks into existing $SETTINGS_FILE"
+          else
+              echo "Warning: jq not found. Please manually add Batou hooks to $SETTINGS_FILE"
+              echo "$BATOU_HOOKS"
+              exit 1
+          fi
+      else
+          echo "$BATOU_HOOKS" > "$SETTINGS_FILE"
+          echo "Created $SETTINGS_FILE with Batou hooks"
+      fi
+
+      echo "Done! Batou will scan code written by Claude Code for vulnerabilities."
     BASH
-    hook_script.chmod 0755
-
-    setup_claude_hooks(hook_script)
-  end
-
-  def setup_claude_hooks(hook_script)
-    settings_dir = Pathname.new(Dir.home)/".claude"
-    settings_dir.mkpath
-    settings_file = settings_dir/"settings.json"
-
-    if settings_file.exist?
-      contents = settings_file.read
-      return if contents.include?("batou")
-    end
-
-    batou_hooks = {
-      "hooks" => {
-        "PreToolUse" => [
-          {
-            "matcher" => "Write|Edit|NotebookEdit",
-            "hooks" => [
-              {
-                "type" => "command",
-                "command" => hook_script.to_s,
-                "timeout" => 30,
-                "statusMessage" => "Batou: Scanning for vulnerabilities...",
-              },
-            ],
-          },
-        ],
-        "PostToolUse" => [
-          {
-            "matcher" => "Write|Edit|NotebookEdit",
-            "hooks" => [
-              {
-                "type" => "command",
-                "command" => hook_script.to_s,
-                "timeout" => 30,
-                "statusMessage" => "Batou: Deep security scan...",
-              },
-            ],
-          },
-        ],
-      },
-    }
-
-    if settings_file.exist?
-      require "json"
-      existing = JSON.parse(settings_file.read)
-      existing["hooks"] ||= {}
-      batou_hooks["hooks"].each do |event, entries|
-        existing["hooks"][event] ||= []
-        existing["hooks"][event].concat(entries)
-      end
-      settings_file.atomic_write(JSON.pretty_generate(existing) + "\n")
-    else
-      require "json"
-      settings_file.atomic_write(JSON.pretty_generate(batou_hooks) + "\n")
-    end
-
-    ohai "Batou Claude Code hooks configured in #{settings_file}"
   end
 
   def caveats
     <<~EOS
-      Batou has been configured as a Claude Code hook.
+      To configure Claude Code hooks, run:
+        batou-setup
 
-      The hook script is at:
-        ~/.batou/hooks/batou-hook.sh
+      This will:
+        - Install a hook script at ~/.batou/hooks/batou-hook.sh
+        - Configure Claude Code hooks in ~/.claude/settings.json
 
-      Claude Code settings updated at:
-        ~/.claude/settings.json
-
-      Batou will automatically scan code written by Claude Code
-      for security vulnerabilities.
+      After setup, Batou will automatically scan code written by
+      Claude Code for security vulnerabilities.
     EOS
   end
 
