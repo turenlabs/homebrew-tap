@@ -38,6 +38,7 @@ class Batou < Formula
     hook_dir.mkpath
 
     hook_script = hook_dir/"batou-hook.sh"
+    hook_script.delete if hook_script.exist?
     hook_script.write <<~BASH
       #!/usr/bin/env bash
       set -euo pipefail
@@ -108,10 +109,10 @@ class Batou < Formula
         existing["hooks"][event] ||= []
         existing["hooks"][event].concat(entries)
       end
-      settings_file.write(JSON.pretty_generate(existing) + "\n")
+      settings_file.atomic_write(JSON.pretty_generate(existing) + "\n")
     else
       require "json"
-      settings_file.write(JSON.pretty_generate(batou_hooks) + "\n")
+      settings_file.atomic_write(JSON.pretty_generate(batou_hooks) + "\n")
     end
 
     ohai "Batou Claude Code hooks configured in #{settings_file}"
