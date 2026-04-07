@@ -1,26 +1,26 @@
 class Batou < Formula
   desc "Generation Time SAST For Claude Code"
   homepage "https://github.com/turenlabs/batou"
-  version "0.4.0"
+  version "1.0.0"
   license "MIT"
 
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/turenlabs/batou/releases/download/v#{version}/batou-darwin-arm64"
-      sha256 "8044a2ee68f97acc72581dcfb1eb7f02b9769494d7d456b0a79f830055d4923a"
+      sha256 "7595ac437684b05a848468823f14dcb1c1c4e0b654870929c2b2c7ecee818091"
     else
       url "https://github.com/turenlabs/batou/releases/download/v#{version}/batou-darwin-amd64"
-      sha256 "4a3dcf27492941df159dd912dcdaa1ea1b3688060f53b8fe7dfa9dfe31c0c7a2"
+      sha256 "e0c17e8a87c1e4a004f6d165da06086482435ab3e598d9f397ae360cade6026a"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
       url "https://github.com/turenlabs/batou/releases/download/v#{version}/batou-linux-arm64"
-      sha256 "71b9c532ad2511d4892ab6b6adead1700dc31ebc697be0666a30634636017e01"
+      sha256 "92a78657c80c0e0085f8e079df3c5cec523be320cab9ecc383b9f69f450745a8"
     else
       url "https://github.com/turenlabs/batou/releases/download/v#{version}/batou-linux-amd64"
-      sha256 "1834dda7a6c01b6bda7670293e22bbfc1d9928763ceaed83fd260077649e9e71"
+      sha256 "1c5c21fad5015e455a8f8fb2638191c4af33e27fc14a80bd6d79a7dd4a00b83f"
     end
   end
 
