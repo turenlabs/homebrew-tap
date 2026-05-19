@@ -7,7 +7,7 @@ cask "spice" do
   desc "Local Shai-Hulud exposure checker for developers"
   homepage "https://github.com/turenlabs/spice"
 
-  depends_on macos: ">= :big_sur"
+  depends_on macos: :big_sur
   depends_on formula: "turenlabs/tap/spice"
 
   app "spice.app", target: "Spice.app"
