@@ -22,8 +22,16 @@ brew install turenlabs/tap/batou
 
 Local Shai-Hulud exposure checker for developers.
 
+Install the CLI:
+
 ```bash
 brew install turenlabs/tap/spice
+```
+
+Install the signed desktop app and CLI:
+
+```bash
+brew install --cask turenlabs/tap/spice
 ```
 
 To update:
