@@ -18,8 +18,17 @@ Generation Time SAST For Claude Code.
 brew install turenlabs/tap/batou
 ```
 
+### spice
+
+Local Shai-Hulud exposure checker for developers.
+
+```bash
+brew install turenlabs/tap/spice
+```
+
 To update:
 
 ```bash
 brew upgrade turenlabs/tap/batou
+brew upgrade turenlabs/tap/spice
 ```
