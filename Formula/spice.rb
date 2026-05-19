@@ -25,7 +25,13 @@ class Spice < Formula
   end
 
   def install
-    bin.install Dir["spice_#{version}_*/spice"].first => "spice"
+    binary = if File.exist?("spice")
+      "spice"
+    else
+      Dir["spice_#{version}_*/spice"].first
+    end
+
+    bin.install binary => "spice"
   end
 
   test do
