@@ -1,6 +1,6 @@
 cask "spice" do
-  version "0.1.12"
-  sha256 "0315f31732003446da0f1b129a84601c4103ad67999d457133f9a147636a9d1a"
+  version "0.1.13"
+  sha256 "df753892b83e12c894497fe8ef0db343f4394429473c5122f4a12b6caf87b4e8"
 
   url "https://github.com/turenlabs/spice/releases/download/v#{version}/spice_#{version}_macos_app.zip"
   name "Spice"
