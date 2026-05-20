@@ -1,26 +1,26 @@
 class Spice < Formula
   desc "Local Shai-Hulud exposure checker for developers"
   homepage "https://github.com/turenlabs/spice"
-  version "0.1.10"
+  version "0.1.11"
   license "Apache-2.0"
 
   on_macos do
     if Hardware::CPU.arm?
       url "https://github.com/turenlabs/spice/releases/download/v#{version}/spice_#{version}_darwin_arm64.tar.gz"
-      sha256 "9de44893e40283def9a832e8bf652d04946b6c89f401695a16e855dca8759a8d"
+      sha256 "8d3db5ac00adc73bee0afe9e096374ca33bb0bf94bc9cb83fd11b360305dd4b4"
     else
       url "https://github.com/turenlabs/spice/releases/download/v#{version}/spice_#{version}_darwin_amd64.tar.gz"
-      sha256 "bc464da672d02f390abbf013fa8f14c6652fde1ed246fe45e38698bd048e8fb7"
+      sha256 "812be10e084f09a84a8fc62c6985106c6aee30534c7e27d1e787c6999ac96d0e"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
       url "https://github.com/turenlabs/spice/releases/download/v#{version}/spice_#{version}_linux_arm64.tar.gz"
-      sha256 "59900c9f443c3da53c5f589676e5bb440908afcb8d3c1ddf234487057f22a4ea"
+      sha256 "34926f8b33debf68f6632fb71e7c426243b43a70017337e74083b38d578b4276"
     else
       url "https://github.com/turenlabs/spice/releases/download/v#{version}/spice_#{version}_linux_amd64.tar.gz"
-      sha256 "75139c1c19060105f33b336ae4b7c4c30c067b4ac98954de3ac76af70c2efe82"
+      sha256 "7a6cd5198599dbeec1afb217f64fe6f7db55a0d13a6ebbbc159e7518f306ed76"
     end
   end
 
