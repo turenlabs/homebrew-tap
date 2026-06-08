@@ -6,30 +6,30 @@
 #   brew install --HEAD turenlabs/tap/omc
 #
 # The default install pours the prebuilt `omc` from the GitHub Release for your
-# platform (the CI release workflow builds it). The release workflow regenerates
-# the per-platform `url`/`sha256` and `version` below for each tag (see
-# scripts/update-homebrew-formula.sh).
+# platform (the omc repo's CI release workflow builds the binaries). After each
+# release, run `./bump-omc.sh <version>` in this tap to regenerate the
+# per-platform `url`/`sha256` and `version` below from the release's SHA256SUMS.
 class Omc < Formula
   desc "Deny-by-default npm/PyPI replacement that compiles packages to verified bytecode"
   homepage "https://github.com/turenlabs/omc"
   license "Apache-2.0"
-  version "0.1.1"
+  version "0.1.2"
 
   on_macos do
     on_arm do
-      url "https://github.com/turenlabs/omc/releases/download/v0.1.1/omc-0.1.1-aarch64-apple-darwin.tar.gz"
-      sha256 "bca613efc7f71540be102ee959cd7fb78af53fbe21e80c6112b18f37f750d6ff"
+      url "https://github.com/turenlabs/omc/releases/download/v0.1.2/omc-0.1.2-aarch64-apple-darwin.tar.gz"
+      sha256 "8c1c0d69d904e79e60cddc752ab89629f7331e5243d14ef393f9de892fc69a62"
     end
     on_intel do
-      url "https://github.com/turenlabs/omc/releases/download/v0.1.1/omc-0.1.1-x86_64-apple-darwin.tar.gz"
-      sha256 "0f6b4d1bf810aa12494698bd4e73ea6cfeda8ae7d97e865c5739b78c46172e86"
+      url "https://github.com/turenlabs/omc/releases/download/v0.1.2/omc-0.1.2-x86_64-apple-darwin.tar.gz"
+      sha256 "8430b8620ad9c0261214d169db6f6fb5fb3b13b090d4f481e40702c794b40f37"
     end
   end
 
   on_linux do
     on_intel do
-      url "https://github.com/turenlabs/omc/releases/download/v0.1.1/omc-0.1.1-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "5ff6ae900038f10de37c88b4acf7b88b60112ef2045eba22a838e31042e05c2e"
+      url "https://github.com/turenlabs/omc/releases/download/v0.1.2/omc-0.1.2-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "bdcaad64ef047549a15449fde1941a4ffcd2650d9c01cc97c6186c0c84f86ddf"
     end
   end
 
