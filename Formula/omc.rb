@@ -14,9 +14,9 @@ class Omc < Formula
   license "Apache-2.0"
   head "https://github.com/turenlabs/omc.git", branch: "main"
 
-  url "https://github.com/turenlabs/omc/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "6ae807055b724e4d2b2f9e9f6b5dd01fd12e3aaf5955880401d70e158acefed7"
-  version "0.1.0"
+  url "https://github.com/turenlabs/omc/archive/refs/tags/v0.1.1.tar.gz"
+  sha256 "7052a4754bfde05bac038ff1fae279c832feae27685914ba481a15834971346e"
+  version "0.1.1"
 
   depends_on "rust" => :build
 
