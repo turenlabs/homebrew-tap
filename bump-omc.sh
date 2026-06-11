@@ -27,10 +27,13 @@ python3 - "$VERSION" "$SRC_REPO" "$sums" <<'PY'
 import re, sys
 
 version, src_repo, sums_path = sys.argv[1], sys.argv[2], sys.argv[3]
-# Must match omc's release.yml build matrix + the on_macos/on_linux blocks.
+# Must match the formula's on_macos/on_linux blocks (a subset of omc's
+# release.yml build matrix; the musl targets are released but not poured by
+# Homebrew).
 targets = [
     "aarch64-apple-darwin",
     "x86_64-apple-darwin",
+    "aarch64-unknown-linux-gnu",
     "x86_64-unknown-linux-gnu",
 ]
 
