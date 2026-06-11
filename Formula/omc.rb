@@ -13,23 +13,23 @@ class Omc < Formula
   desc "Deny-by-default npm/PyPI replacement that compiles packages to verified bytecode"
   homepage "https://github.com/turenlabs/omc"
   license "Apache-2.0"
-  version "0.1.2"
+  version "0.2.0"
 
   on_macos do
     on_arm do
-      url "https://github.com/turenlabs/omc/releases/download/v0.1.2/omc-0.1.2-aarch64-apple-darwin.tar.gz"
-      sha256 "8c1c0d69d904e79e60cddc752ab89629f7331e5243d14ef393f9de892fc69a62"
+      url "https://github.com/turenlabs/omc/releases/download/v0.2.0/omc-0.2.0-aarch64-apple-darwin.tar.gz"
+      sha256 "e76ccefd04dff068af091e9a5955b93b63817c5b128d3eeb4e6c3be26771e4f2"
     end
     on_intel do
-      url "https://github.com/turenlabs/omc/releases/download/v0.1.2/omc-0.1.2-x86_64-apple-darwin.tar.gz"
-      sha256 "8430b8620ad9c0261214d169db6f6fb5fb3b13b090d4f481e40702c794b40f37"
+      url "https://github.com/turenlabs/omc/releases/download/v0.2.0/omc-0.2.0-x86_64-apple-darwin.tar.gz"
+      sha256 "d117c3764a7ac36b0a67a32ce4f7ea58552e64302ba3c9c8fd01415447f1bf1f"
     end
   end
 
   on_linux do
     on_intel do
-      url "https://github.com/turenlabs/omc/releases/download/v0.1.2/omc-0.1.2-x86_64-unknown-linux-gnu.tar.gz"
-      sha256 "bdcaad64ef047549a15449fde1941a4ffcd2650d9c01cc97c6186c0c84f86ddf"
+      url "https://github.com/turenlabs/omc/releases/download/v0.2.0/omc-0.2.0-x86_64-unknown-linux-gnu.tar.gz"
+      sha256 "89cf808e0d48b9e4c7299fceac4debc29a0336faedbd34160454a2d08793df9c"
     end
   end
 
