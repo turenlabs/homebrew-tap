@@ -5,21 +5,21 @@ class Spice < Formula
 
   on_macos do
     if Hardware::CPU.arm?
-      url "https://github.com/turenlabs/spice/releases/download/v0.1.25/spice_0.1.25_darwin_arm64.tar.gz"
-      sha256 "4258414c085b1a81c2267e171319645a41c3cc2a7430b91c65ed5585ba8c5322"
+      url "https://github.com/turenlabs/spice/releases/download/v0.1.26/spice_0.1.26_darwin_arm64.tar.gz"
+      sha256 "25f295822f3580333a8b66543c6fb126103c20e63a233c05574705d56003683c"
     else
-      url "https://github.com/turenlabs/spice/releases/download/v0.1.25/spice_0.1.25_darwin_amd64.tar.gz"
-      sha256 "3d341996807a1e7a34bf3d441cd93f8848ac8dc5e01ab4fefce6438f6bf48bcb"
+      url "https://github.com/turenlabs/spice/releases/download/v0.1.26/spice_0.1.26_darwin_amd64.tar.gz"
+      sha256 "21f5067727cc98458d5027d3c218a6ad5fc84b6be9fa3827159a74944168a141"
     end
   end
 
   on_linux do
     if Hardware::CPU.arm?
-      url "https://github.com/turenlabs/spice/releases/download/v0.1.25/spice_0.1.25_linux_arm64.tar.gz"
-      sha256 "c3d269f6687bc3d20e0415d110f6d9a13497608fe55848816dd3547ba3cb4027"
+      url "https://github.com/turenlabs/spice/releases/download/v0.1.26/spice_0.1.26_linux_arm64.tar.gz"
+      sha256 "baf9606e43e92f3eb2110a852b0bb77149079d010a4b87e485db02283a687192"
     else
-      url "https://github.com/turenlabs/spice/releases/download/v0.1.25/spice_0.1.25_linux_amd64.tar.gz"
-      sha256 "ba62688ecf4032518bdf9f07f22c3ce4a40c2997f74165d3b40aa0b4a2d9d61c"
+      url "https://github.com/turenlabs/spice/releases/download/v0.1.26/spice_0.1.26_linux_amd64.tar.gz"
+      sha256 "c91bc9c4bcade75fd23439b08451473e651f7e8f45390e8736d1b9798e638154"
     end
   end
 
